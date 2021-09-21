@@ -6,6 +6,8 @@ import { useSelector } from 'react-redux';
 import tw from 'tailwind-react-native-classnames';
 import { selectTravelTimeInformation } from '../slices/navSlice';
 
+var currencyFormatter = require('currency-formatter');
+
 const data = [
     {
         id: "Uber-X-123",
@@ -63,12 +65,7 @@ const RideOptionsCard = () => {
                             <Text>{travelTimeInformation?.duration?.text} Travel Time</Text>
                         </View>
                         <Text style={tw`text-xl`}>
-                            {new Intl.NumberFormat('en-in', {
-                                style: 'currency',
-                                currency: 'inr',
-                            }).format(
-                                (travelTimeInformation?.duration.value * SURGE_CHARGE_RATE * multiplier) / 100
-                            )}
+                            {currencyFormatter.format(((travelTimeInformation?.duration.value * SURGE_CHARGE_RATE * multiplier) / 100), { locale: 'en-IN' })}
                         </Text>
                     </TouchableOpacity>
                 )}
